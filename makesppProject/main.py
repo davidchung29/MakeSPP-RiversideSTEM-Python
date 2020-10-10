@@ -40,8 +40,8 @@ def redrawGameWindow():   #this function basicaly refreshes the screen to keep i
     win.blit(bg, (0, bgY2))
     win.blit(bg, (0, bgY))  # draws our first bg image# draws the second bg image   #draws the background at the center, or 0,0
     player.draw(win)           #draws the player in the window
-    pygame.display.update()     #checks for any inputs from user, then updates the program
     fpsClock.tick(FPS)          #refresehes every FPS
+    pygame.display.update()     #checks for any inputs from user, then updates the program
 
       #draws player at 150,370 with width 40 and height 60
 wait = True
@@ -81,7 +81,7 @@ while wait:
                         bgY = bg.get_height()
                     if bgY2 < bg.get_height() * -1:
                         bgY2 = bg.get_height()
-
+                    redrawGameWindow()
                     for event in pygame.event.get():  # checks for input
                         if event.type == pygame.QUIT:  # if input is quit(the x at the top of the screen)
                             pygame.quit()  # if program recieves quit input, closes program
