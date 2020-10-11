@@ -13,8 +13,8 @@ win = pygame.display.set_mode((W,H))
 pygame.display.set_caption("Game")
 
 bg = pygame.image.load(os.path.join('images','bg.jpeg'))
-bgY = int(0)
-bgY2 = bg.get_height()
+bgX = int(0)
+bgX2 = bg.get_width()
 
 class player(object):       # created class for player
     img = pygame.image.load(os.path.join('images', 'rocket.png'))
@@ -37,8 +37,8 @@ class player(object):       # created class for player
             win.blit(self.img, (self.x, self.y))
 
 def redrawGameWindow():   #this function basicaly refreshes the screen to keep it updated
-    win.blit(bg, (0, bgY2))
-    win.blit(bg, (0, bgY))  # draws our first bg image# draws the second bg image   #draws the background at the center, or 0,0
+    win.blit(bg, (bgX, 0))
+    win.blit(bg, (bgX2, 0))  # draws our first bg image# draws the second bg image   #draws the background at the center, or 0,0
     player.draw(win)           #draws the player in the window
     fpsClock.tick(FPS)          #refresehes every FPS
     pygame.display.update()     #checks for any inputs from user, then updates the program
@@ -60,7 +60,7 @@ while wait:
                 intro= False
                 pygame.quit()
 
-        player.y -= player.vel/2
+        player.x -= player.vel/2
 
         while player.y == 260:
             player.y-= player.vel
@@ -72,16 +72,18 @@ while wait:
             while starting:
                 player.x = 190
                 player.y = 540
+                player.y -= player.vel * 2
                 starting = False
                 run = True
                 while run:
-                    bgY -= player.vel
-                    bgY2 -= player.vel
+                    bgY -= 4
+                    bgY2 -= 4
                     if bgY < bg.get_height() * -1:
                         bgY = bg.get_height()
+                        redrawGameWindow()
                     if bgY2 < bg.get_height() * -1:
                         bgY2 = bg.get_height()
-                    redrawGameWindow()
+                        redrawGameWindow()
                     for event in pygame.event.get():  # checks for input
                         if event.type == pygame.QUIT:  # if input is quit(the x at the top of the screen)
                             pygame.quit()  # if program recieves quit input, closes program
